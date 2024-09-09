@@ -33,6 +33,7 @@
             background-color: #f9f9f9; /* Light background for the chart area */
             border: 1px solid #333; /* Border around the chart */
             max-width: 1200px; /* Maximum width */
+            overflow: hidden; /* Hide overflow to avoid issues */
         }
     </style>
 </head>
@@ -111,8 +112,15 @@
         const panzoom = Panzoom(element, {
             maxScale: 5,   // Allows zoom in up to 5x
             minScale: 0.5, // Allows zoom out to half size
+            contain: 'outside' // Ensures the element doesn't go out of view
         });
-        element.parentElement.addEventListener('wheel', panzoom.zoomWithWheel);
+
+        // Attach the wheel event for zooming with the scroll wheel
+        element.addEventListener('wheel', function(event) {
+            event.preventDefault(); // Prevent the default scroll behavior
+            const zoomOut = event.deltaY > 0;
+            panzoom.zoom(zoomOut ? 0.9 : 1.1, { animate: true });
+        });
     </script>
 
 </body>
