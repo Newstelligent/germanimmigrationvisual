@@ -4,12 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Einwanderung nach Deutschland</title>
+
+    <!-- Load Mermaid.js -->
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
         mermaid.initialize({ startOnLoad: true });
     </script>
+
+    <!-- Load Panzoom.js for pan and zoom functionality -->
+    <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@9.4.0/dist/panzoom.min.js"></script>
+
+    <!-- Custom styles for layout and spacing -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+        }
+        .mermaid {
+            width: 80%; /* Width of the chart container */
+            margin: 40px auto; /* Center the chart on the page */
+            padding: 20px; /* Space inside the container */
+            background-color: #f9f9f9; /* Light background for the chart area */
+            border: 1px solid #333; /* Border around the chart */
+            max-width: 1200px; /* Maximum width */
+        }
+    </style>
 </head>
 <body>
+
     <h1>Einwanderung nach Deutschland</h1>
     <div class="mermaid">
         graph TD
@@ -76,5 +104,16 @@
         C --> J
         I --> J
     </div>
+
+    <!-- Initialize Panzoom for zoom and pan functionality -->
+    <script>
+        const element = document.querySelector('.mermaid');
+        const panzoom = Panzoom(element, {
+            maxScale: 5,   // Allows zoom in up to 5x
+            minScale: 0.5, // Allows zoom out to half size
+        });
+        element.parentElement.addEventListener('wheel', panzoom.zoomWithWheel);
+    </script>
+
 </body>
 </html>
