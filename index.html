@@ -4,179 +4,150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Einwanderung nach Deutschland</title>
-
+    
+    <!-- Load Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
     <!-- Load Mermaid.js -->
     <script type="module">
         import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ startOnLoad: true });
+        mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
     </script>
 
-    <!-- Load Panzoom.js for pan and zoom functionality -->
-    <script src="https://cdn.jsdelivr.net/npm/@panzoom/panzoom@9.4.0/dist/panzoom.min.js"></script>
-
-    <!-- Custom styles for layout and spacing -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            text-align: center;
-            padding: 20px;
-        }
-        .mermaid {
-            width: 80%; /* Width of the chart container */
-            margin: 40px auto; /* Center the chart on the page */
-            padding: 20px; /* Space inside the container */
-            background-color: #f9f9f9; /* Light background for the chart area */
-            border: 1px solid #333; /* Border around the chart */
-            max-width: 1200px; /* Maximum width */
-            overflow: hidden; /* Hide overflow to avoid issues */
-        }
-        .controls {
-            text-align: center;
-            margin: 20px;
-        }
-        .controls button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 16px;
-        }
-    </style>
+    <!-- Load D3.js for advanced pan and zoom -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
-<body>
+<body class="bg-gray-100 font-sans">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Einwanderung nach Deutschland</h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+            <div id="mermaid-container" class="w-full overflow-hidden">
+                <div class="mermaid">
+                    graph TD
+                    A[Einwanderung nach Deutschland] --> B[EU-Bürger]
+                    A --> C[Drittstaatsangehörige]
+                    B --> B1[Recht auf Einreise und Aufenthalt]
+                    B1 --> B2[Anmeldung innerhalb von 3 Monaten]
+                    C --> D[Erwerbstätigkeit]
+                    C --> E[Studium]
+                    C --> F[Familiennachzug]
+                    C --> G[Humanitäre Gründe]
+                    C --> H[Selbständigkeit]
+                    D --> D1[Blaue Karte EU]
+                    D --> D2[Fachkräfteeinwanderung]
+                    D --> D3[Chancenkarte ab Nov 2023]
+                    D --> D4[Aufenthaltserlaubnis zur Arbeitsplatzsuche]
+                    D --> D5[Westbalkanregelung ab Jun 2024]
+                    D --> D6[IT-Fachkräfte]
+                    D --> D7[ICT-Karte]
+                    D2 --> D2a[Mit Berufsausbildung]
+                    D2 --> D2b[Mit akademischer Ausbildung]
+                    E --> E1[Aufenthaltserlaubnis zum Studium]
+                    E --> E2[Aufenthaltserlaubnis zum Sprachkurs]
+                    E --> E3[Aufenthaltserlaubnis zur Berufsausbildung]
+                    F --> F1[Ehegattennachzug]
+                    F --> F2[Kindernachzug]
+                    F --> F3[Nachzug sonstiger Familienangehöriger]
+                    F --> F4[Elternnachzug zu minderjährigen Kindern]
+                    G --> G1[Asyl]
+                    G --> G2[Flüchtlingsschutz]
+                    G --> G3[Subsidiärer Schutz]
+                    G --> G4[Vorübergehender Schutz für Ukrainer]
+                    G --> G5[Resettlement-Programme]
+                    H --> H1[Freiberufler]
+                    H --> H2[Unternehmer]
+                    I[Daueraufenthalt]
+                    I --> I1[Niederlassungserlaubnis]
+                    I --> I2[Erlaubnis zum Daueraufenthalt-EU]
+                    I --> I3[Einbürgerung]
+                    J[Integrationserfordernisse]
+                    J --> J1[Integrationskurse]
+                    J --> J2[Sprachanforderungen]
+                    D1 --> I
+                    D2 --> I
+                    D3 --> I
+                    D4 --> I
+                    D5 --> I
+                    D6 --> I
+                    D7 --> I
+                    E1 --> I
+                    E2 --> I
+                    E3 --> I
+                    F1 --> I
+                    F2 --> I
+                    F3 --> I
+                    F4 --> I
+                    G1 --> I
+                    G2 --> I
+                    G3 --> I
+                    G4 --> I
+                    G5 --> I
+                    H1 --> I
+                    H2 --> I
+                    C --> J
+                    I --> J
+                </div>
+            </div>
+        </div>
 
-    <h1>Einwanderung nach Deutschland</h1>
-    <div class="mermaid">
-        graph TD
-        A[Einwanderung nach Deutschland] --> B[EU-Bürger]
-        A --> C[Drittstaatsangehörige]
-        B --> B1[Recht auf Einreise und Aufenthalt]
-        B1 --> B2[Anmeldung innerhalb von 3 Monaten]
-        C --> D[Erwerbstätigkeit]
-        C --> E[Studium]
-        C --> F[Familiennachzug]
-        C --> G[Humanitäre Gründe]
-        C --> H[Selbständigkeit]
-        D --> D1[Blaue Karte EU]
-        D --> D2[Fachkräfteeinwanderung]
-        D --> D3[Chancenkarte ab Nov 2023]
-        D --> D4[Aufenthaltserlaubnis zur Arbeitsplatzsuche]
-        D --> D5[Westbalkanregelung ab Jun 2024]
-        D --> D6[IT-Fachkräfte]
-        D --> D7[ICT-Karte]
-        D2 --> D2a[Mit Berufsausbildung]
-        D2 --> D2b[Mit akademischer Ausbildung]
-        E --> E1[Aufenthaltserlaubnis zum Studium]
-        E --> E2[Aufenthaltserlaubnis zum Sprachkurs]
-        E --> E3[Aufenthaltserlaubnis zur Berufsausbildung]
-        F --> F1[Ehegattennachzug]
-        F --> F2[Kindernachzug]
-        F --> F3[Nachzug sonstiger Familienangehöriger]
-        F --> F4[Elternnachzug zu minderjährigen Kindern]
-        G --> G1[Asyl]
-        G --> G2[Flüchtlingsschutz]
-        G --> G3[Subsidiärer Schutz]
-        G --> G4[Vorübergehender Schutz für Ukrainer]
-        G --> G5[Resettlement-Programme]
-        H --> H1[Freiberufler]
-        H --> H2[Unternehmer]
-        I[Daueraufenthalt]
-        I --> I1[Niederlassungserlaubnis]
-        I --> I2[Erlaubnis zum Daueraufenthalt-EU]
-        I --> I3[Einbürgerung]
-        J[Integrationserfordernisse]
-        J --> J1[Integrationskurse]
-        J --> J2[Sprachanforderungen]
-        D1 --> I
-        D2 --> I
-        D3 --> I
-        D4 --> I
-        D5 --> I
-        D6 --> I
-        D7 --> I
-        E1 --> I
-        E2 --> I
-        E3 --> I
-        F1 --> I
-        F2 --> I
-        F3 --> I
-        F4 --> I
-        G1 --> I
-        G2 --> I
-        G3 --> I
-        G4 --> I
-        G5 --> I
-        H1 --> I
-        H2 --> I
-        C --> J
-        I --> J
+        <div class="flex justify-center space-x-4 mb-8">
+            <button id="zoom-in" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+            </button>
+            <button id="zoom-out" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6" />
+                </svg>
+            </button>
+            <button id="reset" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Reset</button>
+        </div>
     </div>
 
-    <!-- Controls for zoom and navigation -->
-    <div class="controls">
-        <button id="zoom-in">Zoom In</button>
-        <button id="zoom-out">Zoom Out</button><br>
-        <button id="up">Up</button><br>
-        <button id="left">Left</button>
-        <button id="right">Right</button><br>
-        <button id="down">Down</button>
-    </div>
-
-    <!-- Initialize Panzoom for zoom and pan functionality -->
     <script>
-        const element = document.querySelector('.mermaid');
-        const panzoom = Panzoom(element, {
-            maxScale: 5,   // Allows zoom in up to 5x
-            minScale: 0.5, // Allows zoom out to half size
-            contain: 'outside' // Ensures the element doesn't go out of view
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            // Wait for Mermaid to render the diagram
+            setTimeout(() => {
+                const svg = d3.select("#mermaid-container svg");
+                const g = svg.select("g");
+                
+                // Set initial transform
+                g.attr("transform", "translate(0,0) scale(1)");
+                
+                let zoom = d3.zoom()
+                    .scaleExtent([0.5, 5])
+                    .on("zoom", (event) => {
+                        g.attr("transform", event.transform);
+                    });
 
-        // Attach the wheel event for zooming with the scroll wheel
-        element.parentElement.addEventListener('wheel', function(event) {
-            event.preventDefault(); // Prevent the default scroll behavior
-            const scale = event.deltaY < 0 ? 1.1 : 0.9; // Zoom in or out
-            panzoom.zoom(scale, {
-                animate: true,
-                focal: {
-                    x: event.clientX,
-                    y: event.clientY
-                }
-            });
-        });
+                svg.call(zoom);
 
-        // Zoom In button
-        document.getElementById('zoom-in').addEventListener('click', function() {
-            panzoom.zoomIn();
-        });
+                document.getElementById('zoom-in').addEventListener('click', () => {
+                    svg.transition().duration(300).call(zoom.scaleBy, 1.3);
+                });
 
-        // Zoom Out button
-        document.getElementById('zoom-out').addEventListener('click', function() {
-            panzoom.zoomOut();
-        });
+                document.getElementById('zoom-out').addEventListener('click', () => {
+                    svg.transition().duration(300).call(zoom.scaleBy, 1 / 1.3);
+                });
 
-        // Pan Up button
-        document.getElementById('up').addEventListener('click', function() {
-            panzoom.pan(0, -50); // Move up by 50px
-        });
+                document.getElementById('reset').addEventListener('click', () => {
+                    svg.transition().duration(300).call(zoom.transform, d3.zoomIdentity);
+                });
 
-        // Pan Down button
-        document.getElementById('down').addEventListener('click', function() {
-            panzoom.pan(0, 50); // Move down by 50px
-        });
-
-        // Pan Left button
-        document.getElementById('left').addEventListener('click', function() {
-            panzoom.pan(-50, 0); // Move left by 50px
-        });
-
-        // Pan Right button
-        document.getElementById('right').addEventListener('click', function() {
-            panzoom.pan(50, 0); // Move right by 50px
+                // Enable mouse wheel zooming
+                svg.on("wheel.zoom", (event) => {
+                    event.preventDefault();
+                    const delta = event.deltaY;
+                    if (delta > 0) {
+                        svg.transition().duration(300).call(zoom.scaleBy, 1 / 1.1);
+                    } else {
+                        svg.transition().duration(300).call(zoom.scaleBy, 1.1);
+                    }
+                });
+            }, 1000); // Wait for 1 second to ensure Mermaid has rendered the diagram
         });
     </script>
-
 </body>
 </html>
