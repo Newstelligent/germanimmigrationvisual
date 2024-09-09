@@ -35,6 +35,15 @@
             max-width: 1200px; /* Maximum width */
             overflow: hidden; /* Hide overflow to avoid issues */
         }
+        .controls {
+            text-align: center;
+            margin: 20px;
+        }
+        .controls button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +115,16 @@
         I --> J
     </div>
 
+    <!-- Controls for zoom and navigation -->
+    <div class="controls">
+        <button id="zoom-in">Zoom In</button>
+        <button id="zoom-out">Zoom Out</button><br>
+        <button id="up">Up</button><br>
+        <button id="left">Left</button>
+        <button id="right">Right</button><br>
+        <button id="down">Down</button>
+    </div>
+
     <!-- Initialize Panzoom for zoom and pan functionality -->
     <script>
         const element = document.querySelector('.mermaid');
@@ -116,10 +135,46 @@
         });
 
         // Attach the wheel event for zooming with the scroll wheel
-        element.addEventListener('wheel', function(event) {
+        element.parentElement.addEventListener('wheel', function(event) {
             event.preventDefault(); // Prevent the default scroll behavior
-            const zoomOut = event.deltaY > 0;
-            panzoom.zoom(zoomOut ? 0.9 : 1.1, { animate: true });
+            const scale = event.deltaY < 0 ? 1.1 : 0.9; // Zoom in or out
+            panzoom.zoom(scale, {
+                animate: true,
+                focal: {
+                    x: event.clientX,
+                    y: event.clientY
+                }
+            });
+        });
+
+        // Zoom In button
+        document.getElementById('zoom-in').addEventListener('click', function() {
+            panzoom.zoomIn();
+        });
+
+        // Zoom Out button
+        document.getElementById('zoom-out').addEventListener('click', function() {
+            panzoom.zoomOut();
+        });
+
+        // Pan Up button
+        document.getElementById('up').addEventListener('click', function() {
+            panzoom.pan(0, -50); // Move up by 50px
+        });
+
+        // Pan Down button
+        document.getElementById('down').addEventListener('click', function() {
+            panzoom.pan(0, 50); // Move down by 50px
+        });
+
+        // Pan Left button
+        document.getElementById('left').addEventListener('click', function() {
+            panzoom.pan(-50, 0); // Move left by 50px
+        });
+
+        // Pan Right button
+        document.getElementById('right').addEventListener('click', function() {
+            panzoom.pan(50, 0); // Move right by 50px
         });
     </script>
 
