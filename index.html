@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einwanderung nach Deutschland</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <h1>Einwanderung nach Deutschland</h1>
+    <div class="mermaid">
+        graph TD
+        A[Einwanderung nach Deutschland] --> B[EU-Bürger]
+        A --> C[Drittstaatsangehörige]
+        B --> B1[Recht auf Einreise und Aufenthalt]
+        B1 --> B2[Anmeldung innerhalb von 3 Monaten]
+        C --> D[Erwerbstätigkeit]
+        C --> E[Studium]
+        C --> F[Familiennachzug]
+        C --> G[Humanitäre Gründe]
+        C --> H[Selbständigkeit]
+        D --> D1[Blaue Karte EU]
+        D --> D2[Fachkräfteeinwanderung]
+        D --> D3[Chancenkarte ab Nov 2023]
+        D --> D4[Aufenthaltserlaubnis zur Arbeitsplatzsuche]
+        D --> D5[Westbalkanregelung ab Jun 2024]
+        D --> D6[IT-Fachkräfte]
+        D --> D7[ICT-Karte]
+        D2 --> D2a[Mit Berufsausbildung]
+        D2 --> D2b[Mit akademischer Ausbildung]
+        E --> E1[Aufenthaltserlaubnis zum Studium]
+        E --> E2[Aufenthaltserlaubnis zum Sprachkurs]
+        E --> E3[Aufenthaltserlaubnis zur Berufsausbildung]
+        F --> F1[Ehegattennachzug]
+        F --> F2[Kindernachzug]
+        F --> F3[Nachzug sonstiger Familienangehöriger]
+        F --> F4[Elternnachzug zu minderjährigen Kindern]
+        G --> G1[Asyl]
+        G --> G2[Flüchtlingsschutz]
+        G --> G3[Subsidiärer Schutz]
+        G --> G4[Vorübergehender Schutz für Ukrainer]
+        G --> G5[Resettlement-Programme]
+        H --> H1[Freiberufler]
+        H --> H2[Unternehmer]
+        I[Daueraufenthalt]
+        I --> I1[Niederlassungserlaubnis]
+        I --> I2[Erlaubnis zum Daueraufenthalt-EU]
+        I --> I3[Einbürgerung]
+        J[Integrationserfordernisse]
+        J --> J1[Integrationskurse]
+        J --> J2[Sprachanforderungen]
+        D1 --> I
+        D2 --> I
+        D3 --> I
+        D4 --> I
+        D5 --> I
+        D6 --> I
+        D7 --> I
+        E1 --> I
+        E2 --> I
+        E3 --> I
+        F1 --> I
+        F2 --> I
+        F3 --> I
+        F4 --> I
+        G1 --> I
+        G2 --> I
+        G3 --> I
+        G4 --> I
+        G5 --> I
+        H1 --> I
+        H2 --> I
+        C --> J
+        I --> J
+    </div>
+</body>
+</html>
